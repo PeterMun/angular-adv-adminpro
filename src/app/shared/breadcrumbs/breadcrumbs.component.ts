@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -14,9 +14,9 @@ export class BreadcrumbsComponent implements OnDestroy {
   public titulo: string;
   public tituloSubs$: Subscription;
 
-  constructor( private router: Router ) {
+  constructor( private router: Router, private route: ActivatedRoute ) {
 
-    this.getArgumentosRuta()
+    this.tituloSubs$ = this.getArgumentosRuta()
     .subscribe( ({ titulo }) => {
       this.titulo = titulo;
       document.title = `AdminPro - ${titulo}`;
